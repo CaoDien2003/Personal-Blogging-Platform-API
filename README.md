@@ -36,7 +36,7 @@ Before running this project, ensure you have the following installed:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/personal-blogging-platform-api.git
+   git clone https://github.com/CaoDien2003/Personal-Blogging-Platform-API.git
    cd personal-blogging-platform-api
    ```
 2. **Requirements**:
