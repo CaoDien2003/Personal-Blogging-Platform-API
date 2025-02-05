@@ -10,6 +10,7 @@ auth_service = AuthService()
 blog_service = BlogService()
 
 @blog_bp.route('/', methods=['GET'])
+@auth_service.token_required()
 def get_blogs():
     """
     Description: Get a list of all posts.
@@ -19,6 +20,7 @@ def get_blogs():
     return blog_service.get_all_blogs()
 
 @blog_bp.route('/<int:id>', methods=['GET'])
+@auth_service.token_required()
 def get_blog(id):
     """
     Description: Fetch details of a specific blog by its ID.
