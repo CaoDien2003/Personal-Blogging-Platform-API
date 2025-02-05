@@ -1,70 +1,46 @@
-# Personal Blogging Platform API
+# **Personal Blogging Platform API**
 
-A RESTful API for a personal blogging platform built with Flask and MongoDB. This API supports basic CRUD operations, such as creating, reading, updating, and deleting blog posts, and allows filtering posts by keywords.
-
----
-
-## Features
-
-- **Create Blog Post**: Add a new blog post to the database.
-- **Read Blog Posts**: Retrieve all blog posts or a specific post by ID.
-- **Update Blog Post**: Update an existing blog post.
-- **Delete Blog Post**: Remove a blog post by ID.
-- **Filter Blog Posts**: Search blog posts by keywords in their title, content, or category.
+A lightweight backend API built with Flask for managing blog posts and user authentication. This project uses JWT-based authentication and PostgreSQL as its database. The API is designed for personal or small-scale blogging platforms.
 
 ---
 
-## Tech Stack
+## **Features**
 
-- **Backend Framework**: Flask (Python)
-- **Database**: MongoDB
-- **Other Tools**: Flask-RESTful, PyMongo
+- **Authentication**
+
+  - Secure user login and registration using JWT tokens.
+  - Role-based access control (`admin` vs `user`).
+
+- **Blog Management**
+
+  - Create, update, delete, and fetch blog posts.
+  - View all posts or specific posts by ID.
+
+- **Security**
+
+  - Password hashing for secure storage.
+  - Protected endpoints using JWT-based middleware.
+
+- **Database**
+  - PostgreSQL for storing users and blog data.
+  - Predefined SQL queries for efficient operations.
 
 ---
 
-## Prerequisites
+## **Prerequisites**
 
-Before running this project, ensure you have the following installed:
+To run this project, ensure you have the following installed:
 
-[![Python](https://img.shields.io/badge/python-%203.10%20|%203.11%20|%203.12|%203.13-blue?logo=python&logoColor=white)](https://www.python.org/downloads/)
-
-[![MongoDB](https://img.shields.io/badge/MongoDB-v4.4%20|%20v5.0%20|%20v6.0-brightgreen?logo=mongodb&logoColor=white)](https://www.mongodb.com/try/download/community)
+1. **Python**: Version 3.8 or higher.
+2. **PostgreSQL**: A running instance of PostgreSQL.
+3. **Virtual Environment** (optional but recommended).
 
 ---
 
-## Installation
+## **Installation**
 
-1. **Clone the repository**:
+1. **Clone the Repository**
    ```bash
-   git clone https://github.com/CaoDien2003/Personal-Blogging-Platform-API.git
-   cd personal-blogging-platform-api
+   git clone https://github.com/your-repo-url.git
+   cd Personal-Blogging-Platform-API
    ```
-2. **Requirements**:
-
-   ```bash
-   pip install -r src/requirements.txt
-   ```
-
-3. **Configure MongoDB**:
-
-   - Copy the .env.sample file and create a .env file:
-
-   ```bash
-   cp src/.env.sample src/.env
-   ```
-
-   - Add your MongoDB connection string to the .env file.
-
-4. **Running**
-
-   ```bash
-   python src/app.py
-   ```
-
-## 📬 Contact
-
-For any inquiries or contributions, feel free to reach out:
-
-- **Email:** nguyencaodien2003@gmail.com
-- **GitHub:** [CaoDien2003](https://github.com/YourGitHubUsername)
-- **LinkedIn:** [Điền Cao](https://www.linkedin.com/in/nguyencaodien/)

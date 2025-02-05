@@ -1,59 +1,37 @@
-from flask import blueprints,request,render_template
-import jwt
+from flask import Blueprint, request, jsonify
+from app.auth.services import AuthService
+from app.storage import DB_Service
 
-# Function to create JWT token
-def create_token(user_id):
-    payload = {'user_id': user_id}
-    token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
-    return token
+# Define the Blueprint for authentication
+auth_bp = Blueprint('auth', __name__)
 
+# Instantiate AuthService and DB_Service
+auth_service = AuthService()
+db_service = DB_Service()
 
-# Middleware: Verify JWT Token
-def token_required(f=None, role=None):
-    if f is None:
-        return lambda x: token_required(x, role=role)
-
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = request.headers.get('Authorization')
-
-        if not token:
-            return jsonify({'message': 'Token is missing'}), 401
-
-        try:
-            data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
-            user_id = data['user_id']
-
-            cursor.execute('SELECT * FROM users WHERE id=%s', (user_id,))
-            user = cursor.fetchone()
-
-            if not user:
-                return jsonify({'message': 'User not found'}), 401
-
-            if role and user['role'] != role:
-                return jsonify({'message': 'Unauthorized access'}), 403
-        except jwt.ExpiredSignatureError:
-            return jsonify({'message': 'Token has expired'}), 401
-        except jwt.InvalidTokenError:
-            return jsonify({'message': 'Invalid token'}), 401
-
-        return f(*args, **kwargs)
-
-    return decorated
-
-
-# Login Route
-@app.route('/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    """
+    Description: Authenticate a user and return a JWT token upon successful login.
+    Input:
+        - username (string): The username of the user.
+        - password (string): The password of the user.
+    Output:
+        - Success: JSON response with a JWT token and status code 200.
+        - Failure: JSON response with an error message and status code 401.
+    """
+    return auth_service.login()
 
-    cursor.execute('SELECT * FROM users WHERE username=%s', (username,))
-    user = cursor.fetchone()
-
-    if user and check_password_hash(user['password'], password):
-        token = create_token(user['id'])
-        return jsonify({'token': token})
-    else:
-        return jsonify({'message': 'Invalid credentials'}), 401
+@auth_bp.route('/register', methods=['POST'])
+def register():
+    """
+    Description: Register a new user by adding their details to the database.
+    Input:
+        - username (string): The username of the user.
+        - password (string): The password of the user.
+        - role (string): The role of the user (e.g., 'admin', 'user').
+    Output:
+        - Success: JSON response indicating successful registration.
+        - Failure: JSON response with an error message.
+    """
+    return auth_service.register()
